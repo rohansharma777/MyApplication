@@ -1,16 +1,11 @@
 package com.beacons.railwayaid.raid;
 
-import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.kontakt.sdk.android.ble.connection.OnServiceReadyListener;
@@ -39,13 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        checkPermissionAndStart();
-        proximityManager.connect(new OnServiceReadyListener() {
-            @Override
-            public void onServiceReady() {
-                proximityManager.startScanning();
-            }
-        });
+        startScanning();
     }
 
     @Override
@@ -61,76 +50,11 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void checkPermissionAndStart() {
-        int checkSelfPermissionResult = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-        if (PackageManager.PERMISSION_GRANTED == checkSelfPermissionResult) {
-            //already granted
-            startScan();
-        } else {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                Intent intent = new Intent();
-                PendingIntent pIntent = PendingIntent.getActivity(MainActivity.this,0,intent,0);
-                long when = System.currentTimeMillis();
-                String contentTitle = "RAID";
-                NotificationManager notificationManager =(NotificationManager) MainActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
-                int smallIcon = R.drawable.ic_launcher;
-
-
-                    Notification.Builder notification = new Notification.Builder(MainActivity.this)
-                            .setWhen(when)
-                            .setTicker(contentTitle)
-                            .setContentTitle(contentTitle)
-                            .setContentText("Permission required for location")
-                            .setSmallIcon(smallIcon)
-                            .setAutoCancel(true)
-                            .setContentIntent(pIntent);
-
-                    notificationManager.notify((int) when, notification.build());
-
-
-            } else {
-                //request permission
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
-            }
-        }
-    }
 
 
 
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            if (100 == requestCode) {
-                //same request code as was in request permission
-                startScan();
-            }
 
-        } else {
-            //not granted permission
-            //show some explanation dialog that some features will not work
-            Intent intent = new Intent();
-            PendingIntent pIntent = PendingIntent.getActivity(MainActivity.this,0,intent,0);
-            long when = System.currentTimeMillis();
-            String contentTitle = "RAID";
-            NotificationManager notificationManager =(NotificationManager) MainActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
-            int smallIcon = R.drawable.ic_launcher;
-
-
-                Notification.Builder notification = new Notification.Builder(MainActivity.this)
-                        .setWhen(when)
-                        .setTicker(contentTitle)
-                        .setContentTitle(contentTitle)
-                        .setContentText("Permission is required to proceed")
-                        .setSmallIcon(smallIcon)
-                        .setAutoCancel(true)
-                        .setContentIntent(pIntent);
-
-                notificationManager.notify((int) when, notification.build());
-
-
-        }
-    }
-
-    private void startScan() {
+    private void startScanning() {
         proximityManager.connect(new OnServiceReadyListener() {
             @Override
             public void onServiceReady() {

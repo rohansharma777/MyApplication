@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import com.kontakt.sdk.android.ble.connection.OnServiceReadyListener;
@@ -25,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.ic_tram));
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.ic_location_on));
+        tabs.addTab(tabs.newTab().setIcon(R.drawable.ic_notifications_active));
+
         KontaktSDK.initialize("daPXGvgYkMWSgJlXprzrUfgnvYYGBCuG");
 
         proximityManager = ProximityManagerFactory.create(this);
@@ -75,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 long when = System.currentTimeMillis();
                 String contentTitle = "RAID";
                 NotificationManager notificationManager =(NotificationManager) MainActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
-                int smallIcon = R.drawable.ic_launcher;
+                int smallIcon = R.drawable.ic_stat_name;
                 if( BeaconId.equals("6Y5a")){
 
                   Notification.Builder notification = new Notification.Builder(MainActivity.this)
@@ -98,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 long when = System.currentTimeMillis();
                 String contentTitle = "RAID";
                 NotificationManager notificationManager =(NotificationManager) MainActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
-                int smallIcon = R.drawable.ic_launcher;
+                int smallIcon = R.drawable.ic_stat_name;
                 if( BeaconId.equals("6Y5a")){
 
                     Notification.Builder notification = new Notification.Builder(MainActivity.this)

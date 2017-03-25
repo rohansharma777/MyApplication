@@ -12,14 +12,29 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <service android:name="com.kontakt.sdk.android.ble.service.ProximityService" android:exported="false"/>
-        <activity android:name=".MainActivity">
+
+        <activity
+            android:name=".StartScreen"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="com.beacons.railwayaid.raid.MAINACTIVITY"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+    </application>
+ 
 </manifest>

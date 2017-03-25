@@ -3,12 +3,7 @@ package com.beacons.railwayaid.raid;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ProgressBar;
 
-/**
- * Created by muskan on 25/3/17.
- */
 
 public class StartScreen extends Activity {
 

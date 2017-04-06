@@ -11,26 +11,9 @@ public class StartScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.startscreen);
 
-        Thread timerThread = new Thread(){
-            public void run(){
-                try{
-                    sleep(3000);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }finally{
-                    Intent intent = new Intent(StartScreen.this, MainActivity.class);
-                    startActivity(intent);
-                }
-            }
-        };
-        timerThread.start();
-    }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
 }

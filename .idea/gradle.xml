@@ -8,8 +8,11 @@
         <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle" />
         <option name="modules">
           <set>
+            <option value="$PROJECT_DIR$/.." />
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/../indoors-library-surface-4.4.0" />
+            <option value="$PROJECT_DIR$/../indoors-library-surface-4.4.0/library" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

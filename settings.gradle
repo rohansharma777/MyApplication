@@ -1,1 +1,2 @@
 include ':app'
+include '..:indoors-library-surface-4.4.0:library'
